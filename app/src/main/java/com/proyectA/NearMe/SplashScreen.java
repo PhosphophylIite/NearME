@@ -7,6 +7,8 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Map;
+
 public class SplashScreen extends AppCompatActivity {
     final int SPLASH_SCREEN = 4000;
 
@@ -20,7 +22,7 @@ public class SplashScreen extends AppCompatActivity {
         getSupportActionBar().hide();
 
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(SplashScreen.this,ListEventos.class);
+            Intent intent = new Intent(SplashScreen.this, Nav_drawer.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();

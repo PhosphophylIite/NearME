@@ -30,11 +30,11 @@ public class EveAdapter extends RecyclerView.Adapter<EveAdapter.EventoViewHolder
     @Override
     public void onBindViewHolder(EventoViewHolder holder, int position) {
         Evento evento = eventos.get(position);
-        String strNom = Long.toString(evento.getNombre());
-        String strUbi = Long.toString(evento.getUbicacion());
+        //String strNom = Long.toString(evento.getNombre());
+        //String strUbi = Long.toString(evento.getUbicacion());
 
-        holder.tvNombre.setText(strNom);
-        holder.tvUbicacion.setText(strUbi);
+        holder.tvNombre.setText(evento.getNombre());
+        holder.tvUbicacion.setText(evento.getUbicacion());
         holder.tvasistencia.setText(evento.getAsistentes());
 
     }

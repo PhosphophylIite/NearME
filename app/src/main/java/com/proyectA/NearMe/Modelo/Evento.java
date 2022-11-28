@@ -1,18 +1,26 @@
 package com.proyectA.NearMe.Modelo;
 
 public class Evento {
-    /*
-    private String Nombre, Ubicacion, Asistentes;
+
+    //private Long Ubicacion;
+    private String ID, Nombre, Asistentes, Ubicacion;
+
+    public Evento(String ID, String nombre, String asistentes, String ubicacion) {
+        this.ID = ID;
+        Nombre = nombre;
+        Asistentes = asistentes;
+        Ubicacion = ubicacion;
+    }
 
     public Evento() {
     }
-
-    public Evento(String nombre, String ubicacion, String asistentes) {
-        Nombre = nombre;
-        Ubicacion = ubicacion;
-        Asistentes = asistentes;
+    public String getID() {
+        return ID;
     }
 
+    public void setID(String ID) {
+        this.ID = ID;
+    }
     public String getNombre() {
         return Nombre;
     }
@@ -36,40 +44,5 @@ public class Evento {
     public void setAsistentes(String asistentes) {
         Asistentes = asistentes;
     }
-    */
-    private Long Nombre, Ubicacion;
-    private String Asistentes;
 
-    public Long getNombre() {
-        return Nombre;
-    }
-
-    public void setNombre(Long nombre) {
-        Nombre = nombre;
-    }
-
-    public Long getUbicacion() {
-        return Ubicacion;
-    }
-
-    public void setUbicacion(Long ubicacion) {
-        Ubicacion = ubicacion;
-    }
-
-    public String getAsistentes() {
-        return Asistentes;
-    }
-
-    public void setAsistentes(String asistentes) {
-        Asistentes = asistentes;
-    }
-
-    public Evento() {
-    }
-
-    public Evento(Long nombre, Long ubicacion, String asistentes) {
-        Nombre = nombre;
-        Ubicacion = ubicacion;
-        Asistentes = asistentes;
-    }
 }
