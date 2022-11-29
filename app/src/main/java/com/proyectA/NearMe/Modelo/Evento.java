@@ -3,7 +3,7 @@ package com.proyectA.NearMe.Modelo;
 public class Evento {
 
     //private Long Ubicacion;
-    private String ID, Nombre, Asistentes, Ubicacion;
+    private String ID, Nombre, Asistentes, Ubicacion, Hora, Fecha;
 
     public Evento(String ID, String nombre, String asistentes, String ubicacion) {
         this.ID = ID;

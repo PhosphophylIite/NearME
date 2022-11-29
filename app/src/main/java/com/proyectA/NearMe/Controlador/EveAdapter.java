@@ -5,8 +5,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.proyectA.NearMe.Fragment_evento;
+import com.proyectA.NearMe.ListEventos;
 import com.proyectA.NearMe.Modelo.Evento;
 import com.proyectA.NearMe.R;
 
@@ -37,6 +40,14 @@ public class EveAdapter extends RecyclerView.Adapter<EveAdapter.EventoViewHolder
         holder.tvUbicacion.setText(evento.getUbicacion());
         holder.tvasistencia.setText(evento.getAsistentes());
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                Fragment_evento fragment_evento = new Fragment_evento();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.rec, fragment_evento).addToBackStack(null).commit();
+            }
+        });
     }
 
 

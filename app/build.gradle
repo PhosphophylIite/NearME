@@ -50,6 +50,9 @@ dependencies {
 
     //Navigation drawer
     implementation 'com.google.android.material:material:1.8.0-alpha03'
+    //Places
+    implementation 'com.google.android.libraries.places:places:2.7.0'
+
 
 
 }
