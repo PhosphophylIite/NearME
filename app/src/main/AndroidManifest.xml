@@ -38,7 +38,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCLw0VhWvXU3O0cC-3IAo1joHjHpa9ut_4" />
+            android:value="MAPS_API_KEY" />
 
         <activity
             android:name=".ListEventos"
@@ -56,6 +56,13 @@
         </activity>
         <activity
             android:name=".Maps"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Details_evento"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

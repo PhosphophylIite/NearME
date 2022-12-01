@@ -1,5 +1,6 @@
 package com.proyectA.NearMe.Controlador;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.proyectA.NearMe.Fragment_evento;
-import com.proyectA.NearMe.ListEventos;
+import com.proyectA.NearMe.Details_evento;
 import com.proyectA.NearMe.Modelo.Evento;
 import com.proyectA.NearMe.R;
 
@@ -39,13 +39,22 @@ public class EveAdapter extends RecyclerView.Adapter<EveAdapter.EventoViewHolder
         holder.tvNombre.setText(evento.getNombre());
         holder.tvUbicacion.setText(evento.getUbicacion());
         holder.tvasistencia.setText(evento.getAsistentes());
+        holder.tvFecha.setText(evento.getUbicacion());
+        holder.tvHora.setText(evento.getAsistentes());
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                Fragment_evento fragment_evento = new Fragment_evento();
+                /*Details_evento fragment_evento = new Details_evento();
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.rec, fragment_evento).addToBackStack(null).commit();
+                 */
+                Intent intent = new Intent(view.getContext(), Details_evento.class);
+                intent.putExtra("Titulos",evento.getNombre());
+                intent.putExtra("Horas",evento.getAsistentes());
+                intent.putExtra("Fechas",evento.getUbicacion());
+
+                view.getContext().startActivity(intent);
             }
         });
     }
@@ -59,13 +68,15 @@ public class EveAdapter extends RecyclerView.Adapter<EveAdapter.EventoViewHolder
 
     public static class EventoViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tvNombre, tvUbicacion,tvasistencia;
+        TextView tvNombre, tvUbicacion,tvasistencia, tvFecha, tvHora;
 
         public EventoViewHolder(View itemview){
             super(itemview);
             tvNombre = (TextView) itemview.findViewById(R.id.nombre_evento);
             tvUbicacion = (TextView) itemview.findViewById(R.id.ubicacion_evento);
             tvasistencia = (TextView) itemview.findViewById(R.id.num_asistentes);
+            tvFecha = (TextView) itemview.findViewById(R.id.Fecha_evento);
+            tvHora = (TextView) itemview.findViewById(R.id.Hora_evento);
 
         }
 
