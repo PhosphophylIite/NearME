@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +27,7 @@ import java.util.Calendar;
 import java.util.UUID;
 
 public class Add_evento extends AppCompatActivity implements View.OnClickListener {
-    Button btnDatePicker, btnTimePicker, btnMapPicker, btnCrear;
+    Button btnDatePicker, btnTimePicker, btnMapPicker, btnCrear, btnCancelar;
     EditText mTitulo;
     TextView txtDate, txtTime;
     private int mYear, mMonth, mDay, mHour, mMinute;
@@ -38,21 +39,23 @@ public class Add_evento extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_add_evento);
-
+        //botones
         btnDatePicker=(Button)findViewById(R.id.btn_date);
         btnTimePicker=(Button)findViewById(R.id.btn_time);
         btnMapPicker=(Button)findViewById(R.id.btn_maps);
         btnCrear=(Button)findViewById(R.id.btn_crear);
+        btnCancelar=(Button)findViewById(R.id.btn_cancelar);
+
+        //
         mTitulo = findViewById(R.id.txt_tit);
-
-
         txtDate= (TextView) findViewById(R.id.tv_date_select);
         txtTime= (TextView) findViewById(R.id.tv_time_select);
-
+        //Listener de botones
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
         btnMapPicker.setOnClickListener(this);
         btnCrear.setOnClickListener(this);
+        btnCancelar.setOnClickListener(this);
         // calling the action bar
         ActionBar actionBar = getSupportActionBar();
 
@@ -152,8 +155,19 @@ public class Add_evento extends AppCompatActivity implements View.OnClickListene
             database.getReference().getRoot().child(p.getID()).setValue(p);
             Toast.makeText(this, "Agregado correctamente", Toast.LENGTH_SHORT).show();
             clear();
+            //cerrar actividad
+            int time_out =1000;
+            new Handler().postDelayed(() -> {
+                finish();
+            },time_out);
+
+
+        }
+        if (v == btnCancelar) {
+            finish();
         }
     }
+    //Funcion que verifica en el TimePicker si es de un digito
     public String undigito(int tiempo){
         String temp;
         if (tiempo<10){
@@ -162,7 +176,7 @@ public class Add_evento extends AppCompatActivity implements View.OnClickListene
         }
         return String.valueOf(tiempo);
     }
-
+    //limpia casillas
     public void clear(){
         mTitulo.setText("");
         txtTime.setText("");
