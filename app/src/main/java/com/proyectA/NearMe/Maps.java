@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -32,11 +33,43 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
+        googleMap.clear();
         LatLng La_Serena = new LatLng(-29.90453, -71.24894); //-29.90453 -71.24894
         googleMap.addMarker(new MarkerOptions().position(La_Serena).title("Marker in La Serena"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(La_Serena));
         googleMap.getUiSettings().setZoomControlsEnabled(true);
-        googleMap.animateCamera( CameraUpdateFactory.zoomTo( 17.0f ) );
+        googleMap.animateCamera( CameraUpdateFactory.zoomTo( 16.0f ) );
 
+
+
+        // Setting a click event handler for the map
+        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+
+            @Override
+            public void onMapClick(LatLng latLng) {
+
+                // Creating a marker
+                MarkerOptions markerOptions = new MarkerOptions();
+
+                // Setting the position for the marker
+                markerOptions.position(latLng);
+
+                // Setting the title for the marker.
+                // This will be displayed on taping the marker
+                markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+
+                // Clears the previously touched position
+                googleMap.clear();
+
+                // Animating to the touched position
+                googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+
+                // Placing a marker on the touched position
+                googleMap.addMarker(markerOptions);
+            }
+        });
     }
+
+
 }

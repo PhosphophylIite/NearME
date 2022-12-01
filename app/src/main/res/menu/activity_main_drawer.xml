@@ -9,12 +9,9 @@
             android:title="Inicio" />
         <item
             android:id="@+id/maps"
-            android:title="Maps" />
+            android:title="Mapa de eventos" />
         <item
             android:id="@+id/listEventos"
-            android:title="Busqueda" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:title="Slideshow" />
+            android:title="Buscar eventos" />
     </group>
 </menu>

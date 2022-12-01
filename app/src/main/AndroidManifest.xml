@@ -38,7 +38,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="MAPS_API_KEY" />
+            android:value="AIzaSyCLw0VhWvXU3O0cC-3IAo1joHjHpa9ut_4" />
 
         <activity
             android:name=".ListEventos"
@@ -49,6 +49,7 @@
         </activity>
         <activity
             android:name=".Add_evento"
+            android:label="Crea un evento"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -73,7 +74,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 

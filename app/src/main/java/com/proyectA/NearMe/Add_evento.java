@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -119,16 +120,22 @@ public class Add_evento extends AppCompatActivity implements View.OnClickListene
                         @Override
                         public void onTimeSet(TimePicker view, int hourOfDay,
                                               int minute) {
-                            txtTime.setText(hourOfDay + ":" + minute);
+                            if (minute ==0 && hourOfDay==0){
+                                txtTime.setText("00:00");
+                            }else if (minute ==0){
+                                txtTime.setText(undigito(hourOfDay) +":00");
+                            }else if (hourOfDay==0){
+                                txtTime.setText( "00:" + undigito(minute));
+                            }else {
+                                txtTime.setText(undigito(hourOfDay) + ":" + undigito(minute));
+                            }
                         }
                     }, mHour, mMinute, false);
             timePickerDialog.show();
         }
         if (v == btnMapPicker) {
-            //Lanzar el fragmento de mapa para recuperar la localizacion y guardar el nombre, lat y long
-            Context context = getApplicationContext();
-            Toast toasta = Toast.makeText(context, "Aqui lanzaria el mapa, si hubiera uno D:", Toast.LENGTH_SHORT);
-            toasta.show();
+            Intent intent = new Intent(Add_evento.this, Maps.class);
+            startActivity(intent);
         }
         if (v == btnCrear){
 
@@ -147,6 +154,15 @@ public class Add_evento extends AppCompatActivity implements View.OnClickListene
             clear();
         }
     }
+    public String undigito(int tiempo){
+        String temp;
+        if (tiempo<10){
+            temp= "0"+ String.valueOf(tiempo);
+            return temp;
+        }
+        return String.valueOf(tiempo);
+    }
+
     public void clear(){
         mTitulo.setText("");
         txtTime.setText("");

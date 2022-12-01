@@ -20,7 +20,9 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.splash_screen);
 
         getSupportActionBar().hide();
-
+        /*Pasado la cantidad de 4 segundos, se genera
+         la clase de navigation drawer.
+         */
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(SplashScreen.this, Nav_drawer.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
