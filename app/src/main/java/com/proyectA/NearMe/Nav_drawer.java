@@ -27,19 +27,12 @@ public class Nav_drawer extends AppCompatActivity {
 
         binding = ActivityNavDrawerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        //llama a la toolbar
         setSupportActionBar(binding.appBarNavDrawer.toolbar);
-        binding.appBarNavDrawer.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Aun no hago nada xd", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        // Pasa las id de los layout
+        //
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.maps, R.id.eventoslist)
                 .setOpenableLayout(drawer)
@@ -49,7 +42,7 @@ public class Nav_drawer extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
-
+    //Control de navegacion, gestiona quien es el fragmen principal
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_nav_drawer);

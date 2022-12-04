@@ -39,10 +39,10 @@ public class EveAdapter extends RecyclerView.Adapter<EveAdapter.EventoViewHolder
         holder.tvNombre.setText(evento.getNombre());
         holder.tvUbicacion.setText(evento.getUbicacion());
         holder.tvasistencia.setText(evento.getAsistentes());
-        holder.tvFecha.setText(evento.getUbicacion());
-        holder.tvHora.setText(evento.getAsistentes());
+        holder.tvFecha.setText(evento.getFecha());
+        holder.tvHora.setText(evento.getHora());
 
-
+        //ITEM SOLITARIO
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,8 +51,11 @@ public class EveAdapter extends RecyclerView.Adapter<EveAdapter.EventoViewHolder
                  */
                 Intent intent = new Intent(view.getContext(), Details_evento.class);
                 intent.putExtra("Titulos",evento.getNombre());
-                intent.putExtra("Horas",evento.getAsistentes());
-                intent.putExtra("Fechas",evento.getUbicacion());
+                intent.putExtra("Horas",evento.getHora());
+                intent.putExtra("Fechas",evento.getFecha());
+                intent.putExtra("Ubicaciones",evento.getUbicacion());
+                intent.putExtra("Descripciones",evento.getDescripcion());
+
 
                 view.getContext().startActivity(intent);
             }
@@ -64,7 +67,6 @@ public class EveAdapter extends RecyclerView.Adapter<EveAdapter.EventoViewHolder
     public int getItemCount() {
         return eventos.size();
     }
-
 
     public static class EventoViewHolder extends RecyclerView.ViewHolder{
 

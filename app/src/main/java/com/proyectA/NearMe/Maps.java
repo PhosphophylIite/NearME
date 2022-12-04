@@ -41,8 +41,6 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback {
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.animateCamera( CameraUpdateFactory.zoomTo( 16.0f ) );
 
-
-
         // Setting a click event handler for the map
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 

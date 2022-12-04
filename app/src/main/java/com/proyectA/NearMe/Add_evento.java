@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -28,8 +29,7 @@ import java.util.UUID;
 
 public class Add_evento extends AppCompatActivity implements View.OnClickListener {
     Button btnDatePicker, btnTimePicker, btnMapPicker, btnCrear, btnCancelar;
-    EditText mTitulo;
-    TextView txtDate, txtTime;
+    EditText mTitulo, mDescripcion, mDate, mTime, mMaps;
     private int mYear, mMonth, mDay, mHour, mMinute;
     //database
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -46,10 +46,13 @@ public class Add_evento extends AppCompatActivity implements View.OnClickListene
         btnCrear=(Button)findViewById(R.id.btn_crear);
         btnCancelar=(Button)findViewById(R.id.btn_cancelar);
 
-        //
+        //ID de textview o plain text
         mTitulo = findViewById(R.id.txt_tit);
-        txtDate= (TextView) findViewById(R.id.tv_date_select);
-        txtTime= (TextView) findViewById(R.id.tv_time_select);
+        mDescripcion = findViewById(R.id.txt_desc);
+        mDate= findViewById(R.id.et_date_selected);
+        mTime= findViewById(R.id.et_time_selected);
+        mMaps = findViewById(R.id.et_ubi_selected);
+
         //Listener de botones
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
@@ -100,7 +103,7 @@ public class Add_evento extends AppCompatActivity implements View.OnClickListene
                                         Toast toast2 = Toast.makeText(context, "El dia ingresado es menor al actual", Toast.LENGTH_SHORT);
                                         toast2.show();
                                     } else {
-                                        txtDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                        mDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                                     }
                                 }
                             }
@@ -124,13 +127,13 @@ public class Add_evento extends AppCompatActivity implements View.OnClickListene
                         public void onTimeSet(TimePicker view, int hourOfDay,
                                               int minute) {
                             if (minute ==0 && hourOfDay==0){
-                                txtTime.setText("00:00");
+                                mTime.setText("00:00");
                             }else if (minute ==0){
-                                txtTime.setText(undigito(hourOfDay) +":00");
+                                mTime.setText(undigito(hourOfDay) +":00");
                             }else if (hourOfDay==0){
-                                txtTime.setText( "00:" + undigito(minute));
+                                mTime.setText( "00:" + undigito(minute));
                             }else {
-                                txtTime.setText(undigito(hourOfDay) + ":" + undigito(minute));
+                                mTime.setText(undigito(hourOfDay) + ":" + undigito(minute));
                             }
                         }
                     }, mHour, mMinute, false);
@@ -143,30 +146,59 @@ public class Add_evento extends AppCompatActivity implements View.OnClickListene
         if (v == btnCrear){
 
             String titulo = mTitulo.getText().toString();
-            String ubicacion = txtDate.getText().toString();
-            String asistentes = txtTime.getText().toString();
+            String fecha = mDate.getText().toString();
+            String hora = mTime.getText().toString();
+            String descripcion = mDescripcion.getText().toString();
+            String ubicacion = mMaps.getText().toString();
 
-            Evento p = new Evento();
-            p.setID(UUID.randomUUID().toString());
-            p.setNombre(titulo);
-            p.setUbicacion(ubicacion);
-            p.setAsistentes(asistentes);
+            //validaciones de vacio
+            if(titulo.equals("")||fecha.equals("")||hora.equals("")||descripcion.equals("")||ubicacion.equals("")) {
+                validacion();
+            }else{
+                Evento p = new Evento();
+                p.setID(UUID.randomUUID().toString());
+                p.setNombre(titulo);
+                p.setFecha(fecha);
+                p.setHora(hora);
+                p.setDescripcion(descripcion);
+                p.setUbicacion(ubicacion);
 
-            database.getReference().getRoot().child(p.getID()).setValue(p);
-            Toast.makeText(this, "Agregado correctamente", Toast.LENGTH_SHORT).show();
-            clear();
-            //cerrar actividad
-            int time_out =1000;
-            new Handler().postDelayed(() -> {
-                finish();
-            },time_out);
-
-
+                database.getReference().getRoot().child(p.getID()).setValue(p);
+                Toast.makeText(this, "Agregado correctamente", Toast.LENGTH_SHORT).show();
+                clear();
+                //cerrar actividad
+                int time_out =1000;
+                new Handler().postDelayed(() -> {
+                    finish();
+                },time_out);
+            }
         }
         if (v == btnCancelar) {
             finish();
         }
     }
+    //Validacion casillas vacias
+    public void validacion() {
+        String titulo = mTitulo.getText().toString();
+        String fecha = mDate.getText().toString();
+        String hora = mTime.getText().toString();
+        String descripcion = mDescripcion.getText().toString();
+        String ubicacion = mMaps.getText().toString();
+
+        if (titulo.equals("")) {
+            mTitulo.setError("Requerido");
+        } else if (fecha.equals("")) {
+            mDate.setError("Requerido");
+        } else if (hora.equals("")) {
+            mTime.setError("Requerido");
+        } else if (ubicacion.equals("")) {
+            mMaps.setError("Requerido");
+        } else if (descripcion.equals("")) {
+            mDescripcion.setError("Requerido");
+        }
+    }
+
+
     //Funcion que verifica en el TimePicker si es de un digito
     public String undigito(int tiempo){
         String temp;
@@ -179,8 +211,10 @@ public class Add_evento extends AppCompatActivity implements View.OnClickListene
     //limpia casillas
     public void clear(){
         mTitulo.setText("");
-        txtTime.setText("");
-        txtDate.setText("");
+        mTime.setText("");
+        mDate.setText("");
+        mDescripcion.setText("");
+        mMaps.setText("");
     }
     // this event will enable the back
     // function to the button on press
