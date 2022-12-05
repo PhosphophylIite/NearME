@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Map;
 
 public class SplashScreen extends AppCompatActivity {
-    final int SPLASH_SCREEN = 4000;
+    final int SPLASH_SCREEN = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

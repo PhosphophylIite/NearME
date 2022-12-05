@@ -3,9 +3,9 @@ package com.proyectA.NearMe.Modelo;
 public class Evento {
 
     //private Long Ubicacion;
-    private String ID, Nombre, Asistentes, Ubicacion, Hora, Fecha, Descripcion;
+    private String ID, Nombre, Asistentes, Ubicacion, Hora, Fecha, Descripcion, Latitud, Longitud;
 
-    public Evento(String ID, String nombre, String asistentes, String ubicacion, String hora, String fecha, String descripcion) {
+    public Evento(String ID, String nombre, String asistentes, String ubicacion, String hora, String fecha, String descripcion, String latitud, String longitud) {
         this.ID = ID;
         Nombre = nombre;
         Asistentes = asistentes;
@@ -13,6 +13,24 @@ public class Evento {
         Hora = hora;
         Fecha = fecha;
         Descripcion = descripcion;
+        Latitud = latitud;
+        Longitud = longitud;
+    }
+
+    public String getLatitud() {
+        return Latitud;
+    }
+
+    public void setLatitud(String latitud) {
+        Latitud = latitud;
+    }
+
+    public String getLongitud() {
+        return Longitud;
+    }
+
+    public void setLongitud(String longitud) {
+        Longitud = longitud;
     }
 
     public Evento() {

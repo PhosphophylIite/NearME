@@ -38,7 +38,6 @@ public class EveAdapter extends RecyclerView.Adapter<EveAdapter.EventoViewHolder
 
         holder.tvNombre.setText(evento.getNombre());
         holder.tvUbicacion.setText(evento.getUbicacion());
-        holder.tvasistencia.setText(evento.getAsistentes());
         holder.tvFecha.setText(evento.getFecha());
         holder.tvHora.setText(evento.getHora());
 
@@ -76,7 +75,6 @@ public class EveAdapter extends RecyclerView.Adapter<EveAdapter.EventoViewHolder
             super(itemview);
             tvNombre = (TextView) itemview.findViewById(R.id.nombre_evento);
             tvUbicacion = (TextView) itemview.findViewById(R.id.ubicacion_evento);
-            tvasistencia = (TextView) itemview.findViewById(R.id.num_asistentes);
             tvFecha = (TextView) itemview.findViewById(R.id.Fecha_evento);
             tvHora = (TextView) itemview.findViewById(R.id.Hora_evento);
 

@@ -18,8 +18,10 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.google.firebase.database.FirebaseDatabase;
 import com.proyectA.NearMe.Modelo.Evento;
@@ -31,6 +33,7 @@ public class Add_evento extends AppCompatActivity implements View.OnClickListene
     Button btnDatePicker, btnTimePicker, btnMapPicker, btnCrear, btnCancelar;
     EditText mTitulo, mDescripcion, mDate, mTime, mMaps;
     private int mYear, mMonth, mDay, mHour, mMinute;
+    private String latidud, longitud;
     //database
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -107,7 +110,6 @@ public class Add_evento extends AppCompatActivity implements View.OnClickListene
                                     }
                                 }
                             }
-
                         }
                     }, mYear, mMonth, mDay);
             datePickerDialog.show();
@@ -140,8 +142,8 @@ public class Add_evento extends AppCompatActivity implements View.OnClickListene
             timePickerDialog.show();
         }
         if (v == btnMapPicker) {
-            Intent intent = new Intent(Add_evento.this, Maps.class);
-            startActivity(intent);
+            Intent intent = new Intent(Add_evento.this, All_Maps.class);
+            startActivityForResult(intent,1);
         }
         if (v == btnCrear){
 
@@ -162,6 +164,9 @@ public class Add_evento extends AppCompatActivity implements View.OnClickListene
                 p.setHora(hora);
                 p.setDescripcion(descripcion);
                 p.setUbicacion(ubicacion);
+                p.setLatitud(latidud);
+                p.setLongitud(longitud);
+
 
                 database.getReference().getRoot().child(p.getID()).setValue(p);
                 Toast.makeText(this, "Agregado correctamente", Toast.LENGTH_SHORT).show();
@@ -198,7 +203,6 @@ public class Add_evento extends AppCompatActivity implements View.OnClickListene
         }
     }
 
-
     //Funcion que verifica en el TimePicker si es de un digito
     public String undigito(int tiempo){
         String temp;
@@ -216,6 +220,8 @@ public class Add_evento extends AppCompatActivity implements View.OnClickListene
         mDescripcion.setText("");
         mMaps.setText("");
     }
+
+
     // this event will enable the back
     // function to the button on press
     @Override
@@ -226,5 +232,24 @@ public class Add_evento extends AppCompatActivity implements View.OnClickListene
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    //Revisa si llego informacion (lat,longi) de la clase
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode ==1){
+            if(resultCode == RESULT_OK){
+                String result = data.getStringExtra("lati");
+                String result2 = data.getStringExtra("longi");
+
+                mMaps.setText("Mi ubicacion");
+
+                latidud=result;
+                longitud=result2;
+            }
+            if(resultCode == RESULT_CANCELED){
+                mMaps.setText("nada seleccionado");
+            }
+        }
     }
 }

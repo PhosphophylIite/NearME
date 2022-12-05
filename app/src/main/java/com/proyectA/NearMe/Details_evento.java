@@ -1,6 +1,7 @@
 package com.proyectA.NearMe;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -47,7 +48,6 @@ public class Details_evento extends AppCompatActivity {
             Horas = extras.getString("Horas");
             Descripciones = extras.getString("Descripciones");
             Ubicaciones = extras.getString("Ubicaciones");
-
         }
 
         tv_titulo.setText(Titulos);
@@ -63,6 +63,18 @@ public class Details_evento extends AppCompatActivity {
                 UnirseEvento();
             }
         });
+        //ABRIR EL MAPA CUANDO SE PRESIONA LA UBICACION
+        /*
+            Falta implementar que recupere el marcador del evento clickeado.
+         */
+        tv_ubicacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Details_evento.this,All_Maps.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void UnirseEvento(){
@@ -73,7 +85,6 @@ public class Details_evento extends AppCompatActivity {
             Horas = extras.getString("Horas");
             Descripciones = extras.getString("Descripciones");
             Ubicaciones = extras.getString("Ubicaciones");
-
         }
 
         try {

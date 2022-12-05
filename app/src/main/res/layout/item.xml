@@ -80,28 +80,7 @@
                 android:textSize="26sp"
 />
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal"
-            >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Asistentes: "
-                android:textColor="	#A9A9A9"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/num_asistentes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="n°"
-                android:textColor="#A9A9A9"
-                android:textSize="16sp" />
-        </LinearLayout>
 
     </LinearLayout>
 

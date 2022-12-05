@@ -4,7 +4,6 @@ import android.provider.BaseColumns;
 
 //ESTA CLASE ES UN ESQUEMA DE LA TABLA EN LA BASE DE DATOS LOCAL
 public class EventoLocal {
-    //private Long Ubicacion;
     public static abstract class EventosLocales implements BaseColumns {
 
         public static final String TABLE_NAME ="Eventos";
