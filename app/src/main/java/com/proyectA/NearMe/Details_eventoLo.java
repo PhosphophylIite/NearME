@@ -1,27 +1,25 @@
 package com.proyectA.NearMe;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.proyectA.NearMe.Controlador.EventoDBHelper;
 import com.proyectA.NearMe.Modelo.EventoLocal;
 
-import org.w3c.dom.Text;
+public class Details_eventoLo extends AppCompatActivity {
 
-public class Details_evento extends AppCompatActivity {
-
-    public Details_evento(){
+    public Details_eventoLo(){
     }
 
     String Titulos = "Titulo no encontrado";
@@ -31,12 +29,12 @@ public class Details_evento extends AppCompatActivity {
     String Ubicaciones = "Ubicacion no encontrada";
     String IDs = "ID no encontrada";
 
-    Button btnUnirse;
+    Button btnSalirse;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragmento_evento);
+        setContentView(R.layout.activity_details_evento_lo);
         TextView tv_titulo = findViewById(R.id.tv_tit);
         TextView tv_hora = findViewById(R.id.tv_time_select);
         TextView tv_fecha = findViewById(R.id.tv_date_select);
@@ -58,11 +56,11 @@ public class Details_evento extends AppCompatActivity {
         tv_ubicacion.setText(Ubicaciones);
         tv_descripcion.setText(Descripciones);
 
-        btnUnirse=(Button)findViewById(R.id.btn_unirse);
-        btnUnirse.setOnClickListener(new View.OnClickListener() {
+        btnSalirse=(Button)findViewById(R.id.btn_unirse);
+        btnSalirse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UnirseEvento();
+                SalirseEvento();
             }
         });
         //ABRIR EL MAPA CUANDO SE PRESIONA LA UBICACION
@@ -72,14 +70,14 @@ public class Details_evento extends AppCompatActivity {
         tv_ubicacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Details_evento.this,All_Maps.class);
+                Intent intent = new Intent(Details_eventoLo.this,All_Maps.class);
                 startActivity(intent);
             }
         });
 
     }
-    //CREACION DE LA BASE DE DATOS Y LA UNION A
-    public void UnirseEvento(){
+    //Salirse evento
+    public void SalirseEvento(){
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             Titulos = extras.getString("Titulos");
@@ -91,37 +89,21 @@ public class Details_evento extends AppCompatActivity {
         }
 
         try {
-            EventoDBHelper dbHelper = new EventoDBHelper(Details_evento.this);
+            EventoDBHelper dbHelper = new EventoDBHelper(Details_eventoLo.this);
             SQLiteDatabase db = dbHelper.getWritableDatabase();
-            int yata=0;
-            Cursor cursor =db.rawQuery("SELECT id FROM "+ EventoLocal.EventosLocales.TABLE_NAME +" WHERE id = '"+ IDs +"'",null );
-            while (cursor.moveToNext()){
-                //Toast.makeText(this,"Ya te has unido",Toast.LENGTH_SHORT);
-                yata=1;
-            }
-            if (yata==1){
-                Toast.makeText(this,"Ya te has unido",Toast.LENGTH_SHORT).show();
-            }else{
-                // Contenedor de valores
-                ContentValues values = new ContentValues();
-                // Pares clave-valor
-                values.put(EventoLocal.EventosLocales.ID, IDs);
-                values.put(EventoLocal.EventosLocales.TITULO, Titulos);
-                values.put(EventoLocal.EventosLocales.FECHA, Fechas);
-                values.put(EventoLocal.EventosLocales.HORA, Horas);
-                values.put(EventoLocal.EventosLocales.UBICACION, Ubicaciones);
-                values.put(EventoLocal.EventosLocales.DESCRIPCION, Descripciones);
+            db.execSQL("DELETE FROM " + EventoLocal.EventosLocales.TABLE_NAME + " WHERE id = '" + IDs + "'");
+            db.close();
+            Toast.makeText(this,"Ya no estas en este evento",Toast.LENGTH_SHORT).show();
 
-                // Insertar...
-                db.insert(EventoLocal.EventosLocales.TABLE_NAME, null, values);
-                Toast toast2 = Toast.makeText(Details_evento.this, "Te has unido al evento", Toast.LENGTH_SHORT);
-                toast2.show();
-            }
+            //cerrar actividad
+            int time_out =1000;
+            new Handler().postDelayed(() -> {
+                finish();
+            },time_out);
+
         }catch (Exception ex){
             ex.toString();
         }
 
     }
-
-
 }

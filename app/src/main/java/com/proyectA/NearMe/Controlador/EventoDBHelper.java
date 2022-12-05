@@ -26,7 +26,6 @@ public class EventoDBHelper extends SQLiteOpenHelper {
                 + EventoLocal.EventosLocales.UBICACION + " TEXT NOT NULL,"
                 + EventoLocal.EventosLocales.DESCRIPCION + " TEXT,"
                 + "UNIQUE (" + EventoLocal.EventosLocales.ID + "))");
-
     }
 
     // Llamada que se realiza cuando la base de datos necesita ser actualizada

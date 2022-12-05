@@ -6,32 +6,34 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.proyectA.NearMe.Details_evento;
+import com.proyectA.NearMe.Details_eventoLo;
 import com.proyectA.NearMe.Modelo.Evento;
 import com.proyectA.NearMe.R;
 
 import java.util.List;
 
-public class EveAdapter extends RecyclerView.Adapter<EveAdapter.EventoViewHolder> {
+public class EvenLoAdapter extends RecyclerView.Adapter<EveAdapter.EventoViewHolder> {
 
     List<Evento> eventos;
 
-    public EveAdapter(List<Evento> eventos){
+    public EvenLoAdapter(List<Evento> eventos){
         this.eventos = eventos;
     }
 
     @Override
-    public EventoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public EveAdapter.EventoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
-        EventoViewHolder holder = new EventoViewHolder(v);
+        EveAdapter.EventoViewHolder holder = new EveAdapter.EventoViewHolder(v);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(EventoViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull EveAdapter.EventoViewHolder holder, int position) {
         Evento evento = eventos.get(position);
         //String strNom = Long.toString(evento.getNombre());
         //String strUbi = Long.toString(evento.getUbicacion());
@@ -48,7 +50,7 @@ public class EveAdapter extends RecyclerView.Adapter<EveAdapter.EventoViewHolder
                 /*Details_evento fragment_evento = new Details_evento();
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.rec, fragment_evento).addToBackStack(null).commit();
                  */
-                Intent intent = new Intent(view.getContext(), Details_evento.class);
+                Intent intent = new Intent(view.getContext(), Details_eventoLo.class);
                 intent.putExtra("Titulos",evento.getNombre());
                 intent.putExtra("Horas",evento.getHora());
                 intent.putExtra("Fechas",evento.getFecha());
@@ -59,8 +61,6 @@ public class EveAdapter extends RecyclerView.Adapter<EveAdapter.EventoViewHolder
             }
         });
     }
-
-
     @Override
     public int getItemCount() {
         return eventos.size();
@@ -68,7 +68,7 @@ public class EveAdapter extends RecyclerView.Adapter<EveAdapter.EventoViewHolder
 
     public static class EventoViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tvNombre, tvUbicacion, tvFecha, tvHora;
+        TextView tvNombre, tvUbicacion,tvasistencia, tvFecha, tvHora;
 
         public EventoViewHolder(View itemview){
             super(itemview);
